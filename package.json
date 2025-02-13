@@ -1,0 +1,33 @@
+{
+	"name": "nooro-api",
+	"version": "1.0.0",
+	"description": "",
+	"main": "server.js",
+	"scripts": {
+		"dev": "nodemon --exec tsx src/server.ts",
+		"drizzle": "npx drizzle-kit generate && npx drizzle-kit migrate",
+		"generate": "npx drizzle-kit generate",
+		"migrate": "npx drizzle-kit migrate",
+		"push": "npx drizzle-kit push",
+		"pull": "npx drizzle-kit pull",
+		"studio": "npx drizzle-kit studio",
+		"start": "pnpm tsx src/server.ts"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"dotenv": "^16.4.7",
+		"drizzle-orm": "^0.39.3",
+		"express": "^4.21.2",
+		"pg": "^8.13.1"
+	},
+	"devDependencies": {
+		"@types/express": "^5.0.0",
+		"@types/pg": "^8.11.11",
+		"drizzle-kit": "^0.30.4",
+		"tsx": "^4.19.2",
+		"typescript": "^5.7.3"
+	},
+	"type": "module"
+}
