@@ -1,9 +1,35 @@
 import express from "express";
-import api from "./routes/api.ts";
-
+import cors from "cors";
+import session from "express-session";
+import { MySessionStore } from "src/helpers/session-store";
+import { getEnvironmentValue } from "src/helpers/get-environment-value";
+import routes from "@routes/routes";
+import { handleControllerError } from "./middlewares/handle-controller-error";
 const app = express();
-
+app.use(
+	cors({
+		origin: process.env.ORIGIN,
+		credentials: true,
+	}),
+);
 app.use(express.json());
-app.use("/v1", api);
+app.use(
+	session({
+		secret: process.env.AUTH_SECRET!,
+		resave: false,
+		saveUninitialized: false,
+		store: new MySessionStore(),
+		cookie: {
+			httpOnly: true,
+			secure: getEnvironmentValue({ development: false, production: true }),
+			maxAge: 1000 * 60 * 60,
+			sameSite: "lax",
+		},
+	}),
+);
+
+app.use(routes);
+
+app.use(handleControllerError);
 
 export default app;
