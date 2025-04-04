@@ -29,4 +29,4 @@
 ## 2. Access the API
 
 Once the server is running, visit the following URL in your browser or API client:  
-[http://localhost:5000/v1/tasks](http://localhost:5000/v1/tasks)
+[http://localhost:5000/auth/ping](http://localhost:5000/auth/ping)
