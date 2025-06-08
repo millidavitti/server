@@ -1,5 +1,5 @@
 import express from "express";
-import { verifyEmailController } from "./verify-email.controllers";
+import { verifyEmailController } from "./verify-email.controller";
 
 const verifyEmailRoutes = express.Router();
 
