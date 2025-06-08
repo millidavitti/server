@@ -1,4 +1,4 @@
-import { signUpController } from "./sign-up.controllers";
+import { signUpController } from "./sign-up.controller";
 import express from "express";
 
 const signUpRoutes = express.Router();
