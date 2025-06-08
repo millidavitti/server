@@ -1,15 +1,26 @@
-import { pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, text, boolean } from "drizzle-orm/pg-core";
 import { timestamps } from "../../helpers/timestamp";
 import { createId } from "@paralleldrive/cuid2";
+import { z } from "zod";
 
 export const userSchema = pgTable("users", {
 	id: text()
 		.primaryKey()
 		.notNull()
 		.$defaultFn(() => createId()),
-	name: text().notNull(),
+	firstName: text("first_name").notNull(),
+	lastName: text("last_name").notNull(),
 	email: text("email").unique().notNull(),
-	emailVerified: timestamp("email_verified"),
-	image: text(),
+	emailVerified: boolean("email_verified").default(false).notNull(),
+	linkOauthAccounts: boolean("link_oauth_accounts").default(false).notNull(),
+	picture: text("picture"),
 	...timestamps,
 });
+
+export const ZodUser = z.object({
+	id: z.string().cuid2().optional(),
+	name: z.string(),
+	email: z.string().email(),
+	image: z.string().url().nullable().optional(),
+});
+export type User = z.infer<typeof ZodUser>;
