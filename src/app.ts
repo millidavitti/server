@@ -1,10 +1,11 @@
 import express from "express";
 import cors from "cors";
 import session from "express-session";
-import { MySessionStore } from "src/helpers/session-store";
+import { MySessionStore } from "@model/auth/session-store";
 import { getEnvironmentValue } from "src/helpers/get-environment-value";
 import routes from "@routes/routes";
 import { handleControllerError } from "./middlewares/handle-controller-error";
+
 const app = express();
 app.use(
 	cors({
