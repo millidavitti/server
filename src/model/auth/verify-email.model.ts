@@ -4,6 +4,7 @@ import { userSchema } from "@db/schema/user.schema";
 import { and, eq, isNotNull } from "drizzle-orm";
 import { Session, SessionData } from "express-session";
 import { z } from "zod";
+import { generateErrorLog } from "src/helpers/generate-error-log";
 
 export async function verifyEmail(
 	verificationToken: string,
@@ -32,13 +33,13 @@ export async function verifyEmail(
 			) {
 				await db
 					.update(userSchema)
-					.set({ emailVerified: new Date() })
+					.set({ emailVerified: true })
 					.where(eq(userSchema.email, data));
 				return { status: "Email verified" };
 			} else return { status: "Email not verified" };
 		} else throw new Error(getErrorMessage(error));
 	} catch (error) {
-		console.error("---verifyEmail---\n", error);
+		generateErrorLog("verify-email", error);
 		throw new Error(getErrorMessage(error));
 	}
 }
