@@ -1,9 +1,11 @@
-import { signInController } from "./sign-in.controllers";
+import { signInController } from "./controllers/sign-in.controller";
 import express from "express";
+import { verificationController } from "./controllers/verification.controller";
 
 const signInRoutes = express.Router();
 
 // GET /sign-in
-signInRoutes.get("/:signInToken", signInController);
+signInRoutes.post("/", signInController);
+signInRoutes.post("/:token", verificationController);
 
 export default signInRoutes;
